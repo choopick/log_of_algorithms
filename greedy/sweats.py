@@ -13,6 +13,7 @@ def solution(n, lost, reserve):
         if i + 1 in reserve:
             possible[i - 1] = 1
             reserve.remove(i + 1)
+            
         elif i - 1 in reserve:
             possible[i - 1] = 1
             reserve.remove(i - 1)
