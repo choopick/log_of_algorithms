@@ -1,5 +1,3 @@
-
-
 def solution(name):
     name_list = ['A' for i in name]
     cur_idx = 0
@@ -69,7 +67,7 @@ def solution(name):
         
     return answer
 '''
-#print(solution("BBBAAAB")) #8
+print(solution("BBBAAAB")) #8
 print(solution("ABABAAAAABA")) #10
 print(solution("CANAAAAANAN")) #48
 print(solution("ABAAAAABAB")) #8
