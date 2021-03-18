@@ -1,33 +1,37 @@
-
 def solution(name):
+    name_list = ['A' for i in name]
+    cur_idx = 0
     answer = 0
     mid_point = (ord('A') + ord('Z')) / 2
-    for i in range(len(name)):
-        right = 1
 
-
-        if name[i] != 'A' and ord(name[i]) < mid_point:
-            answer += (ord(name[i]) - ord('A'))
-        elif name[i] != 'A' and ord(name[i]) > mid_point:
-            answer += (ord('Z') - ord(name[i]) + 1)
+    while ''.join(name_list) != name:
+        next_list =[]
+        if name[cur_idx] != 'A' and ord(name[cur_idx]) < mid_point:
+            name_list[cur_idx] = name[cur_idx]
+            answer += (ord(name[cur_idx]) - ord('A'))
+        elif name[cur_idx] != 'A' and ord(name[cur_idx]) > mid_point:
+            name_list[cur_idx] = name[cur_idx]
+            answer += (ord('Z') - ord(name[cur_idx]) + 1)
         
-        if i == len(name)-1:
-            break
+        if ''.join(name_list) == name:
+            return answer
 
-        elif name[i] != 'A':
-            for j in range(i + 1, len(name)):
-                if name[j] == 'A':
-                    right += 1
-                else:
-                    break
-            if right < len(name)/2 and right != 1:
-                answer += right
-            elif right >= len(name)/2 and right != 1:
-                answer += (len(name) - right - 1) 
-            if right == 1:
-                answer += right
-                continue
-        
+        for i in range(len(name)):
+            if name[i] != name_list[i]:
+                next_list.append(i)
+
+        if next_list[0] > cur_idx and next_list[0] - cur_idx <= (len(name) - next_list[-1]) + cur_idx:
+            answer += (next_list[0] - cur_idx)
+            cur_idx = next_list[0]
+        elif cur_idx < next_list[-1] and next_list[-1] - cur_idx > (len(name) - next_list[-1]) + cur_idx:
+            answer += (len(name) - next_list[-1]) + cur_idx
+            cur_idx = next_list[-1]
+
+        elif cur_idx > next_list[-1] and cur_idx - next_list[-1] < (len(name) - next_list[-1]) + cur_idx:
+            answer += (cur_idx - next_list[-1])
+            cur_idx = next_list[-1]
+
+            
     return answer
 
 print(solution("BBBAAAB")) #8

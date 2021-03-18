@@ -1,4 +1,41 @@
 
+
+def solution(name):
+    name_list = ['A' for i in name]
+    cur_idx = 0
+    answer = 0
+    mid_point = (ord('A') + ord('Z')) / 2
+
+    while ''.join(name_list) != name:
+        next_list =[]
+        if name[cur_idx] != 'A' and ord(name[cur_idx]) < mid_point:
+            name_list[cur_idx] = name[cur_idx]
+            answer += (ord(name[cur_idx]) - ord('A'))
+        elif name[cur_idx] != 'A' and ord(name[cur_idx]) > mid_point:
+            name_list[cur_idx] = name[cur_idx]
+            answer += (ord('Z') - ord(name[cur_idx]) + 1)
+        
+        if ''.join(name_list) == name:
+            return answer
+
+        for i in range(len(name)):
+            if name[i] != name_list[i]:
+                next_list.append(i)
+
+        if next_list[0] > cur_idx and next_list[0] - cur_idx <= (len(name) - next_list[-1]) + cur_idx:
+            answer += (next_list[0] - cur_idx)
+            cur_idx = next_list[0]
+        elif cur_idx < next_list[-1] and next_list[-1] - cur_idx > (len(name) - next_list[-1]) + cur_idx:
+            answer += (len(name) - next_list[-1]) + cur_idx
+            cur_idx = next_list[-1]
+
+        elif cur_idx > next_list[-1] and cur_idx - next_list[-1] < (len(name) - next_list[-1]) + cur_idx:
+            answer += (cur_idx - next_list[-1])
+            cur_idx = next_list[-1]
+
+            
+    return answer
+'''
 def solution(name):
     answer = 0
     mid_point = (ord('A') + ord('Z')) / 2
@@ -12,6 +49,8 @@ def solution(name):
             answer += (ord('Z') - ord(name[i]) + 1)
         
         if i == len(name)-1:
+            break
+        if i == len(name)-1 and name[i] == 'A':
             break
 
         elif name[i] != 'A':
@@ -29,8 +68,8 @@ def solution(name):
                 continue
         
     return answer
-
-print(solution("BBBAAAB")) #8
+'''
+#print(solution("BBBAAAB")) #8
 print(solution("ABABAAAAABA")) #10
 print(solution("CANAAAAANAN")) #48
 print(solution("ABAAAAABAB")) #8
@@ -43,8 +82,8 @@ print(solution("AABAAAAAAABBB")) #11
 print(solution("ZZZ")) #5
 print(solution("BBBBAAAAAB")) #10
 print(solution("BBBBAAAABA")) #12
-'''
 
+'''
 def solution(name):
     answer = 0
     begin = ['A' for i in range(len(name))]
