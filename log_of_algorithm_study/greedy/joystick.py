@@ -33,6 +33,20 @@ def solution(name):
 
             
     return answer
+
+print(solution("BBBAAAB")) #8
+print(solution("ABABAAAAABA")) #10
+print(solution("CANAAAAANAN")) #48
+print(solution("ABAAAAABAB")) #8
+print(solution("ABABAAAAAB")) #8
+print(solution("BABAAAAB")) #7
+print(solution("AAA")) #0
+print(solution("ABAAAAAAABA")) #6
+print(solution("AAB")) #2
+print(solution("AABAAAAAAABBB")) #11
+print(solution("ZZZ")) #5
+print(solution("BBBBAAAAAB")) #10
+print(solution("BBBBAAAABA")) #12
 '''
 def solution(name):
     answer = 0
