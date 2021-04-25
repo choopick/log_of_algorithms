@@ -2,22 +2,26 @@ import requests
 from bs4 import BeautifulSoup
 from openpyxl import Workbook
 
-
 wb = Workbook(write_only=True)
-ws = wb.create_sheet('TVratings')
-ws.append(['순위', '채널', '프로그램', '시청률'])
-response = requests.get("https://workey.codeit.kr/ratings/index")
-rating_page = response.text
-soup = BeautifulSoup(rating_page, 'html.parser')
+ws = wb.create_sheet()
+ws.append(['지점이름', '주소', '전화번호'])
+# HTML 코드 받아오기
+response = requests.get("https://workey.codeit.kr/orangebottle/index")
 
-for tr_tag in soup.select('tr')[1:]:
-    td_tags = tr_tag.select('td')
-    row = [
-        td_tags[0].get_text(),  # 순위
-        td_tags[1].get_text(),  # 채널
-        td_tags[2].get_text(),  # 프로그램
-        td_tags[3].get_text(),  # 시청률
-    ]
-    ws.append(row)
+# BeautifulSoup 사용해서 HTML 코드 정리
+soup = BeautifulSoup(response.text, 'html.parser')
 
-wb.save('시청률_2010년1월1주차.xlsx')
+branch_infos = []
+
+# 모든 지점에 대한 태그 가져오기
+branch_tags = soup.select('div.branch')
+
+for branch_tag in branch_tags:
+    # 각 태그에서 지점 이름, 전화번호 가져오기
+    branch_name = branch_tag.select_one('p.city').get_text()
+    address = branch_tag.select_one('p.address').get_text()
+    phone_number = branch_tag.select_one('span.phoneNum').get_text()
+    ws.append([branch_name, address, phone_number])
+wb.save('전화번호.xlsx')
+# 출력 코드
+print(branch_infos)
