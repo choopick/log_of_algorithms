@@ -1,18 +1,16 @@
-def solution(s):
-    num_in_english = {'zero':0, 'one':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8, 'nine':9}
-    test_list = []
-    answer_list = []
-    for i in range(len(s)):
-        if ord(s[i]) < 58 and ord(s[i]) >= 48:
-            answer_list.append(s[i])
-            
-        else:
-            test_list.append(s[i])
-            asci = ord(s[i])
-        if ''.join(test_list) in num_in_english.keys():
-            answer_list.append(str(num_in_english[''.join(test_list)]))
-            test_list = []
-    answer = ''.join(answer_list)
-    return int(answer)
+class User:
+    def say_hello(some_user):
+        #인사 메세지 출력 메소드
+        print("안녕하세요! 저는 {}입니다!".format(some_user.name))
 
-print(solution("one4seveneight"))
+    def login(some_user, my_email, my_password):
+        #로그인 메소드
+        if (some_user.email == my_email and some_user.password == my_password):
+            print("로그인 성공, 환영합니다.")
+        else:
+            print("로그인 실패, 없는 아이디이거나 잘못된 비밀번호 입니다.")
+
+user1 = User()
+
+user1.name = "김대위"
+user1.email = "captain@codeit.co.kr"
