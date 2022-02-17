@@ -24,5 +24,3 @@ while True:
     last_height = new_height
 
 playlists = driver.find_elements_by_css_selector('div.playlist__meta')
-
-for
